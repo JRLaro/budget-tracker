@@ -15,8 +15,6 @@ const URLS_TO_CACHE = [
     "/icons/icon-512.png",
 ];
 
-
-
 // install
 self.addEventListener("install", function(evt) {
     evt.waitUntil(
@@ -73,8 +71,6 @@ self.addEventListener("install", function(evt) {
       return;
     }
   
-    // if the request is not for the API, serve static assets using "offline-first" approach.
-    // see https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook#cache-falling-back-to-network
     evt.respondWith(
       caches.match(evt.request).then(function(response) {
         return response || fetch(evt.request);
@@ -82,89 +78,4 @@ self.addEventListener("install", function(evt) {
     );
   });
   
-
-
-
-
-
-
-
-
-
-
-// self.addEventListener("install", event => {
-//     event.waitUntil(
-//         caches
-//         .open(CACHE_NAME)
-//         .then(cache => cache.addAll(urlsToCache))
-//         .then(() => self.skipWaiting())
-//     );
-// });
-
-// self.addEventListener("activate", event => {
-//     const currentCaches = [CACHE_NAME, DATA_CACHE_NAME];
-//     event.waitUntil(
-//         caches
-//         .keys()
-//         .then(cacheNames => {
-           
-//             return cacheNames.filter(
-//                 cacheName => !currentCaches.includes(cacheName)
-//             );
-//         })
-//         .then(cachesToDelete => {
-//             return Promise.all(
-//                 cachesToDelete.map(cacheToDelete => {
-//                     return caches.delete(cacheToDelete);
-//                 })
-//             );
-//         })
-//         .then(() => self.clients.claim())
-//     );
-// });
-
-// self.addEventListener("fetch", event => {
-    
-//     if (
-//         event.request.method !== "GET" ||
-
-//     ) {
-//         event.respondWith(fetch(event.request));
-//         return;
-//     }
-
-    
-//     if (event.request.url.includes("/api/")) {
-    
-//         event.respondWith(
-//             caches.open(DATA_CACHE_NAME).then(cache => {
-//                 return fetch(event.request)
-//                     .then(response => {
-//                         cache.put(event.request, response.clone());
-//                         return response;
-//                     })
-//                     .catch(() => caches.match(event.request));
-//             })
-//         );
-//         return;
-//     }
-
-
-//     event.respondWith(
-//         caches.match(event.request).then(cachedResponse => {
-//             if (cachedResponse) {
-//                 return cachedResponse;
-//             }
-
-        
-//             return caches.open(DATA_CACHE_NAME).then(cache => {
-//                 return fetch(event.request).then(response => {
-//                     return cache.put(event.request, response.clone()).then(() => {
-//                         return response;
-//                     });
-//                 });
-//             });
-//         })
-//     );
-// });
 
