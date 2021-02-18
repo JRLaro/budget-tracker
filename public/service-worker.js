@@ -1,7 +1,7 @@
 console.log("Hello from service worker!");
 
-const CACHE_NAME = "cached-static";
-const DATA_CACHE_NAME = "cache-c";
+const CACHE_NAME = "cache-static";
+const DATA_CACHE_NAME = "cache-data";
 
 
 const URLS_TO_CACHE = [
