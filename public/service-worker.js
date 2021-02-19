@@ -1,5 +1,4 @@
-console.log("Hello from service worker!");
-
+// console.log("Hello from service worker!");
 const CACHE_NAME = "cache-static";
 const DATA_CACHE_NAME = "cache-data";
 
@@ -18,7 +17,8 @@ const URLS_TO_CACHE = [
 // install
 self.addEventListener("install", function(evt) {
     evt.waitUntil(
-      caches.open(CACHE_NAME).then(cache => {
+      caches.open(CACHE_NAME)
+        .then(cache => {
         console.log("Your files were pre-cached successfully!");
         return cache.addAll(URLS_TO_CACHE);
       })
